@@ -1,0 +1,54 @@
+version: '3'
+services:
+  nginx:
+    build: ./requirements/nginx/
+    container_name: nginx
+    ports:
+        - '80:80'
+        - '443:443'
+    volumes:
+        - ./requirements/nginx/conf:/etc/nginx/conf.d
+        - ./requirements/logs/nginx:/var/log/nginx
+        - wordpress_volume:/var/www/html
+    networks:
+        - inception
+    links:
+        - wordpress
+    restart: always
+  
+  mariadb:
+    build: ./requirements/mariadb/
+    container_name: mariadb
+    environment: 
+        - MARIADB_ROOT_PASSWORD=${DB_PASSWORD}
+        - MARIADB_DATABASE=wpdb
+    ports:
+        - '3306:3306'
+    networks:
+        - inception
+    volumes:
+      - mariadb_volume:/var/lib/mysql
+    restart: always
+
+  wordpress:
+    build: ./requirements/wordpress/
+    container_name: wordpress
+    depends_on:
+        - mariadb
+    ports:
+        - '9000:9000'
+    networks:
+        - inception
+    volumes:
+        - wordpress_volume:/var/www/html
+    links:
+        - mariadb
+    restart: always
+
+networks:
+  inception:
+    driver: bridge
+
+volumes:
+  mariadb_volume:
+  wordpress_volume:
