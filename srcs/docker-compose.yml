@@ -20,8 +20,8 @@ services:
     build: ./requirements/mariadb/
     container_name: mariadb
     environment: 
-        - MARIADB_ROOT_PASSWORD=${DB_PASSWORD}
-        - MARIADB_DATABASE=wpdb
+        - MARIADB_ROOT_PASSWORD=${DB_PASS}
+        - MARIADB_DATABASE=${DB_NAME}
     ports:
         - '3306:3306'
     networks:
@@ -34,7 +34,7 @@ services:
     build: ./requirements/wordpress/
     container_name: wordpress
     depends_on:
-        - mariadb
+        - mariadb 
     ports:
         - '9000:9000'
     networks:
@@ -43,6 +43,20 @@ services:
         - wordpress_volume:/var/www/html
     links:
         - mariadb
+    environment:
+        - DB_PASS=${DB_PASS}
+        - DB_NAME=${DB_NAME}
+        - WP_DB_ADMIN=${WP_DB_ADMIN}
+        - WP_DB_HOST=${WP_DB_HOST}
+        - WP_URL=${WP_URL}
+        - WP_TITLE=${WP_TITLE}
+        - WP_ADM_MAIL=${WP_ADM_MAIL}
+        - WP_ADMIN=${WP_ADMIN}
+        - WP_ADMIN_MAIL=${WP_ADMIN_MAIL}
+        - WP_ADMIN_PASS=${WP_ADMIN_PASS}
+        - WP_USER=${WP_USER}
+        - WP_USER_MAIL=${WP_USER_MAIL}
+        - WP_USER_PASS=${WP_USER_PASS}
     restart: always
 
 networks:

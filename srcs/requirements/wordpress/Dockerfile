@@ -12,9 +12,6 @@ RUN mv wp-cli.phar /usr/local/bin/wp
 # Install MySQL extension, as WP-CLI needs to access to WordPress database
 # RUN docker-php-ext-install mysqli
 
-# Add Makefile to scripts dir
-# ADD Makefile /scripts/Makefile
-
 COPY ./tools/entrypoint.sh /usr/local/bin/.
 RUN chmod 755 /usr/local/bin/entrypoint.sh
 
