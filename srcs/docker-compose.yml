@@ -12,8 +12,6 @@ services:
         - wordpress_volume:/var/www/html
     networks:
         - inception
-    links:
-        - wordpress
     restart: always
   
   mariadb:
@@ -41,8 +39,6 @@ services:
         - inception
     volumes:
         - wordpress_volume:/var/www/html
-    links:
-        - mariadb
     environment:
         - DB_PASS=${DB_PASS}
         - DB_NAME=${DB_NAME}
@@ -65,4 +61,12 @@ networks:
 
 volumes:
   mariadb_volume:
+    driver_opts:
+          type: none
+          device: /Users/baigalmaa/work/temp/data/mariadb
+          o: bind
   wordpress_volume:
+      driver_opts:
+          type: none
+          device: /Users/baigalmaa/work/temp/data/wordpress
+          o: bind
