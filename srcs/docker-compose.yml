@@ -63,10 +63,11 @@ volumes:
   mariadb_volume:
     driver_opts:
           type: none
-          device: /Users/baigalmaa/work/temp/data/mariadb
+          device: /home/bbaatar/data/mariadb
           o: bind
   wordpress_volume:
       driver_opts:
           type: none
-          device: /Users/baigalmaa/work/temp/data/wordpress
+          device: /home/bbaatar/data/wordpress
           o: bind
+
