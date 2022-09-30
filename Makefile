@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 .PHONY: default
-default: build ;
+default: local_data build ;
 
 clear_all: clear_containers clear_images
 
@@ -20,6 +20,10 @@ clear_containers:
 
 clear_images:
 	@ docker rmi -f `docker images -q`
+
+local_data:
+	@ mkdir /home/bbaatar/data/wordpress
+	@ mkdir /home/bbaatar/data/mariadb
 
 build: ## Build image and start all containers in background
 	@ docker compose -f ./srcs/docker-compose.yml up -d --build
