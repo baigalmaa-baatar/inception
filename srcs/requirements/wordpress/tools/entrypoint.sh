@@ -4,6 +4,7 @@ set -m
 /usr/local/bin//docker-entrypoint.sh php-fpm &
 
 while ! nc -z mariadb 3306 ; do sleep 1 ; done
+while ! nc -z localhost 9000 ; do sleep 1 ; done
 
 wp config create --allow-root --dbname="$DB_NAME" --dbuser="$WP_DB_ADMIN" --dbpass="$DB_PASS" --dbhost="$WP_DB_HOST" || true
 

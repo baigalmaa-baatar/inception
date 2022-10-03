@@ -1,3 +1,5 @@
+#latest is 1.23
+
 FROM nginx:1.22
 
 RUN apt-get update && \

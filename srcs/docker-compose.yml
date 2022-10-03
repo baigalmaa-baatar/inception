@@ -3,8 +3,9 @@ services:
   nginx:
     build: ./requirements/nginx/
     container_name: nginx
+    depends_on:
+        - wordpress 
     ports:
-        - '80:80'
         - '443:443'
     volumes:
         - ./requirements/nginx/conf:/etc/nginx/conf.d
@@ -61,13 +62,15 @@ networks:
 
 volumes:
   mariadb_volume:
-    driver_opts:
+      driver_opts:
           type: none
-          device: /home/bbaatar/data/mariadb
+          # device: /home/bbaatar/data/mariadb
+          device: /Users/baigalmaa/work/temp/data/mariadb
           o: bind
   wordpress_volume:
       driver_opts:
           type: none
-          device: /home/bbaatar/data/wordpress
+          # device: /home/bbaatar/data/wordpress
+          device: /Users/baigalmaa/work/temp/data/wordpress
           o: bind
 

@@ -22,8 +22,10 @@ clear_images:
 	@ docker rmi -f `docker images -q`
 
 local_data:
-	@ mkdir /home/bbaatar/data/wordpress
-	@ mkdir /home/bbaatar/data/mariadb
+	# @ mkdir /home/bbaatar/data/wordpress || true
+	# @ mkdir /home/bbaatar/data/mariadb || true
+	@ mkdir /Users/baigalmaa/work/temp/data/mariadb || true
+	@ mkdir -p /Users/baigalmaa/work/temp/data/wordpress/wp-content || true
 
 build: ## Build image and start all containers in background
 	@ docker compose -f ./srcs/docker-compose.yml up -d --build
@@ -42,7 +44,7 @@ down: ##Clean all data stop containers
 	@ docker compose -f srcs/docker-compose.yml down
 
 fclean:
-	@ docker stop $$(docker ps -qa)
-	@ docker system prune --all --force --volumes
-	@ docker network prune --force
-	@ docker volume prune --force
+	@ docker stop $$(docker ps -qa) || true
+	@ docker system prune --all --force --volumes || true
+	@ docker network prune --force || true
+	@ docker volume prune --force || true
