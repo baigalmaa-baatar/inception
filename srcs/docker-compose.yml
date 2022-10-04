@@ -1,28 +1,18 @@
 version: '3'
 services:
-  nginx:
-    build: ./requirements/nginx/
-    container_name: nginx
-    depends_on:
-        - wordpress 
-    ports:
-        - '443:443'
-    volumes:
-        - ./requirements/nginx/conf:/etc/nginx/conf.d
-        - ./requirements/logs/nginx:/var/log/nginx
-        - wordpress_volume:/var/www/html
-    networks:
-        - inception
-    restart: always
-  
   mariadb:
     build: ./requirements/mariadb/
     container_name: mariadb
-    environment: 
-        - MARIADB_ROOT_PASSWORD=${DB_PASS}
-        - MARIADB_DATABASE=${DB_NAME}
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
     ports:
         - '3306:3306'
+    expose:
+        - '3306'
     networks:
         - inception
     volumes:
@@ -41,8 +31,8 @@ services:
     volumes:
         - wordpress_volume:/var/www/html
     environment:
-        - DB_PASS=${DB_PASS}
-        - DB_NAME=${DB_NAME}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
         - WP_DB_ADMIN=${WP_DB_ADMIN}
         - WP_DB_HOST=${WP_DB_HOST}
         - WP_URL=${WP_URL}
@@ -54,6 +44,20 @@ services:
         - WP_USER=${WP_USER}
         - WP_USER_MAIL=${WP_USER_MAIL}
         - WP_USER_PASS=${WP_USER_PASS}
+    restart: always
+  
+  nginx:
+    build: ./requirements/nginx/
+    container_name: nginx
+    depends_on:
+        - wordpress
+    ports:
+        - '443:443'
+    volumes:
+        - ./requirements/nginx/conf:/etc/nginx/http.d
+        - wordpress_volume:/var/www/html
+    networks:
+        - inception
     restart: always
 
 networks:
@@ -69,8 +73,8 @@ volumes:
           o: bind
   wordpress_volume:
       driver_opts:
-          type: none
+         type: none
           # device: /home/bbaatar/data/wordpress
-          device: /Users/baigalmaa/work/temp/data/wordpress
-          o: bind
+         device: /Users/baigalmaa/work/temp/data/wordpress
+         o: bind
 
