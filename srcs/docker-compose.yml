@@ -65,16 +65,15 @@ networks:
     driver: bridge
 
 volumes:
-  mariadb_volume:
-      driver_opts:
-          type: none
-          # device: /home/bbaatar/data/mariadb
-          device: /Users/baigalmaa/work/temp/data/mariadb
-          o: bind
-  wordpress_volume:
-      driver_opts:
-         type: none
-          # device: /home/bbaatar/data/wordpress
-         device: /Users/baigalmaa/work/temp/data/wordpress
-         o: bind
-
+    mariadb_volume:
+        driver_opts:
+            type: none
+            device: /home/bbaatar/data/mariadb
+            # device: /Users/baigalmaa/work/temp/data/mariadb
+            o: bind
+    wordpress_volume:
+        driver_opts:
+            type: none
+            device: /home/bbaatar/data/wordpress
+            # device: /Users/baigalmaa/work/temp/data/wordpress
+            o: bind
