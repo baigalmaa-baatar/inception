@@ -1,11 +1,10 @@
 FROM alpine:3.15
 
+# Download Mariadb
 RUN apk update
 RUN	apk add mariadb mariadb-client bash
 RUN	mariadb-install-db --datadir=/var/lib/mysql
 RUN	mkdir /run/mysqld/
-
-# EXPOSE 3306
 
 # purge and re-create /var/lib/mysql with appropriate ownership
 
@@ -22,7 +21,7 @@ VOLUME ["/var/lib/mysql"]
 RUN echo "skip-networking=0" >> /etc/my.cnf
 RUN echo "skip-bind-address" >> /etc/my.cnf
 
-# # Entrypoint
+# Entrypoint
 COPY ./tools/mariadb_entrypoint.sh /usr/local/bin/.
 RUN chmod 755 /usr/local/bin/mariadb_entrypoint.sh
 

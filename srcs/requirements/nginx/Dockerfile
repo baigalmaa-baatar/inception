@@ -4,7 +4,7 @@ FROM alpine:3.15
 RUN apk upgrade
 RUN apk add openssl nginx openrc
 
-# creates certificates
+# create certificates
 RUN openssl genrsa -des3 -passout pass:x -out server.pass.key 2048
 RUN openssl rsa -passin pass:x -in server.pass.key -out server.key
 RUN rm server.pass.key
@@ -19,20 +19,3 @@ RUN sed -i '/#include \/etc\/nginx\/conf.d/s/^#//g' /etc/nginx/nginx.conf
 
 # starts nginx
 CMD ["nginx", "-g", "daemon off;"]
-
-#RUN apk add openssl && \
-#    rm -rf /var/cache/apk/* &&\
-#	openssl genrsa -des3 -passout pass:x -out server.pass.key 2048 && \
-#    openssl rsa -passin pass:x -in server.pass.key -out server.key && \
-#    rm server.pass.key && \
-#    openssl req -new -key server.key -out server.csr \
-#        -subj "/C=UK/ST=Warwickshire/L=Leamington/O=OrgName/OU=IT Department/CN=example.com" && \
-#    openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
-
-#COPY ./tools/nginx_entrypoint.sh /
-#RUN chmod 755 /nginx_entrypoint.sh
-#ENTRYPOINT ["/nginx_entrypoint.sh"]
-
-#EXPOSE 443
-
-#STOPSIGNAL SIGQUIT

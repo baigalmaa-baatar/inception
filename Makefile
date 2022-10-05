@@ -22,10 +22,10 @@ clear_images:
 	@ docker rmi -f `docker images -q`
 
 local_data:
-	# @ mkdir /home/bbaatar/data/wordpress || true
-	# @ mkdir /home/bbaatar/data/mariadb || true
-	@ mkdir -p /Users/baigalmaa/work/temp/data/mariadb || true
-	@ mkdir -p /Users/baigalmaa/work/temp/data/wordpress || true
+	@ mkdir /home/bbaatar/data/wordpress || true
+	@ mkdir /home/bbaatar/data/mariadb || true
+	# @ mkdir -p /Users/baigalmaa/work/temp/data/mariadb || true
+	# @ mkdir -p /Users/baigalmaa/work/temp/data/wordpress || true
 
 build: ## Build image and start all containers in background
 	@ docker compose -f ./srcs/docker-compose.yml up -d --build

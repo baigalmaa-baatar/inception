@@ -54,7 +54,7 @@ services:
     ports:
         - '443:443'
     volumes:
-        - ./requirements/nginx/conf:/etc/nginx/http.d
+        - ./requirements/nginx/config:/etc/nginx/http.d
         - wordpress_volume:/var/www/html
     networks:
         - inception

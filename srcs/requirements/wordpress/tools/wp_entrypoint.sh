@@ -12,4 +12,4 @@ wp user create "$WP_ADMIN" "$WP_ADMIN_MAIL" --role=administrator --user_pass="$W
 
 wp user create "$WP_USER" "$WP_USER_MAIL" --role=author --user_pass="$WP_USER_PASS" --allow-root || true
 
-php-fpm7 -F
+exec php-fpm7 -F $@
