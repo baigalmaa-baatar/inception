@@ -35,10 +35,16 @@ if [ "$MYSQL_DATABASE" != "" ]; then
     fi
 fi
 
+#Prevent login user without password
+echo "DELETE FROM mysql.user WHERE user = '' AND host = 'localhost';" >> $tfile
+echo "DELETE FROM mysql.user WHERE user = 'root' AND host = 'localhost';" >> $tfile
+echo "FLUSH PRIVILEGES;" >> $tfile
+
+
 #Execute the commands in MYSQL 
 /usr/bin/mysqld --user=mysql --bootstrap --verbose=0 --skip-name-resolve --skip-networking=0 < $tfile
 rm -f $tfile
 
 # mysqld --user=root
 
-exec /usr/bin/mysqld --user=root --console --skip-name-resolve --skip-networking=0 $@
+exec /usr/bin/mysqld --user=root --console --skip-name-resolve --skip-networking=0
