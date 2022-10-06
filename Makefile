@@ -6,7 +6,7 @@
 #    By: bbaatar <bbaatar@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/23 14:01:43 by bbaatar           #+#    #+#              #
-#    Updated: 2022/09/23 14:01:45 by bbaatar          ###   ########.fr        #
+#    Updated: 2022/10/06 19:39:30 by bbaatar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ clear_images:
 	@ docker rmi -f `docker images -q`
 
 local_data:
-	@ mkdir /home/bbaatar/data/wordpress || true
-	@ mkdir /home/bbaatar/data/mariadb || true
+	@ mkdir -p /home/bbaatar/data/wordpress || true
+	@ mkdir -p /home/bbaatar/data/mariadb || true
 	# @ mkdir -p /Users/baigalmaa/work/temp/data/mariadb || true
 	# @ mkdir -p /Users/baigalmaa/work/temp/data/wordpress || true
 
